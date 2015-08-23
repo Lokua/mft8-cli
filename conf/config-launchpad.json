@@ -1,0 +1,11 @@
+{
+  "input": "twister",
+  "output": "twister",
+  "virtualIn": "launchpad",
+  "virtualOut": "mft8out",
+  "colors": "D:\\home\\lnet\\mft8\\cli\\conf\\color-mapping.json",
+  "bankInput": {
+    "channel": 0,
+    "notes": [0,1,2,3,4,5,6,7]
+  }
+}
