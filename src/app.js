@@ -177,7 +177,7 @@ function run(config) {
   function flashOff() {
     output.send('noteon', MidiUtil.makeNoteOn(3, 0));
     for (let i = 0; i < 16; i++) {
-      sleep(50, () => {
+      helper.sleep(50, () => {
         output.send('cc', MidiUtil.makeControlChange(1, i, 0));
       });
     }
@@ -186,17 +186,11 @@ function run(config) {
   function flash() {
     output.send('noteon', MidiUtil.makeNoteOn(3, 0));
     for (let i = 0; i < 16; i++) {
-      sleep(50, () => {
+      helper.sleep(50, () => {
         const m = MidiUtil.makeControlChange(1, i, twister.getColor(0, 0, i));
         output.send('cc', MidiUtil.makeControlChange(1, i, twister.getColor(0, 0, i)));
       });
     }
-  }
-
-  function sleep(time, fn) {
-    const stop = new Date().getTime();
-    while(new Date().getTime() < stop + time) {}
-    fn();
   }
 
   function debug(type, msg, port='?') {

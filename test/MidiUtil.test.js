@@ -5,22 +5,20 @@ let portMock = {
   getPortName(n) { return n === 0 ? 'foo' : n === 1 ? 'bar' : 'baz'; }
 };
 let midiMock = {
-  input() { return portMock; },
-  output() { return portMock; }
+  getInputs() { return ['foo', 'bar', 'baz']; },
+  getOutputs() { return ['foo', 'bar', 'baz']; }
 };
-mockery.registerMock('midi', midiMock);
+mockery.registerMock('easymidi', midiMock);
 mockery.enable({ useCleanCache: true, warnOnUnregistered: false });
 
 const expect = require('chai').expect;
 // const sinon = require('sinon');
-const midi = require('midi');
-const MidiUtil = require('../lib/cli/MidiUtil');
+const midi = require('easymidi');
+const MidiUtil = require('../lib/MidiUtil');
 
 describe('MidiUtil', () => {
 
   it('should have static methods and no instance members', () => {
-    expect(MidiUtil.NOTE_ON).to.eql(127);
-    expect(MidiUtil.NOTE_OFF).to.eql(0);
     const midiUtil = new MidiUtil();
     expect(Object.getOwnPropertyNames(midiUtil)).to.eql([]);
     expect(midiUtil).to.be.instanceof(MidiUtil);
@@ -39,10 +37,6 @@ describe('MidiUtil', () => {
     it('...', () => {
       expect(MidiUtil.makeNoteOn(0,0)).to.eql({channel:0,note:0,velocity:127});
       expect(MidiUtil.makeNoteOff(0,0)).to.eql({channel:0,note:0,velocity:0});
-      function fn() { MidiUtil.NOTE_OFF = 99; }
-      expect(fn).to.throw(TypeError);
-      function fn() { MidiUtil.NOTE_ON = 99; }
-      expect(fn).to.throw(TypeError);
     });
   });
 

@@ -55,6 +55,7 @@ class Bank {
       throw new Error(`${controller} is not in bank ${this[BANK_N]}`);
     }
     const encoder = this[ENCODERS].get(controller);
+    // TODO: what about velocity?
     encoder
       .setChannel(msg.channel)
       .setValue(msg.channel, msg.value);
